@@ -20,6 +20,7 @@ func NewNode() *Node {
 
 // méthode de la classe Node. Comme c'est un setter on met *Node pour signifier qu'on modifie et non qu'on lit.
 func (n *Node) InsertWord(word string) {
+	word = strings.ToUpper(word)
 	current := n // le noeud actuel
 	for i := 0; i < len(word); i++ {
 		next, ok := current.Children[string(word[i])] // next: le noeud où on veut aller, ok: si la valeur exist ou pas
