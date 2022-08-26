@@ -1,6 +1,19 @@
 @base_url = http://localhost:8080
 
 ###
+
 GET {{base_url}}/word
+
+###
+
+POST {{base_url}}/word
+
+{"word": "glrgijgzrijo"}
+
+###
+
+POST {{base_url}}/word
+
+{"word": "banane"}
 
 ###
