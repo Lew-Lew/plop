@@ -63,7 +63,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/word", lettersOfTheDay).Methods("GET")
 	router.HandleFunc("/word", verifyWord).Methods("POST")
-	log.Println("Server listening on :8080")
-	err = http.ListenAndServe(":8080", router)
+	log.Println("Server listening on :8081")
+	err = http.ListenAndServe(":8081", router)
 	log.Fatal(err)
 }
