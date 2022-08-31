@@ -23,7 +23,12 @@
       </ul>
     </div>
 
-    <div>
+    <div v-show="this.result !== ''">
+      <p v-if="this.result === true"> WIN </p>
+      <p v-else> LOOSE </p>
+    </div>
+
+    <div v-show="this.result === ''">
       <button v-on:click="deleteAll()" type="button" class="btn btn-light">Effacer</button>
 
       <button v-on:click="validation()" type="button" class="btn btn-light">Valider</button>
@@ -33,23 +38,15 @@
 
 <script>
 // @ is an alias to /src
+import axios from 'axios';
 
 export default {
   name: 'HomeView',
   data() {
     return {
-      letters: [
-        {letter: "b", checked: false},
-        {letter: "a", checked: false},
-        {letter: "n", checked: false},
-        {letter: "a", checked: false},
-        {letter: "n", checked: false},
-        {letter: "i", checked: false},
-        {letter: "e", checked: false},
-        {letter: "r", checked: false},
-        {letter: "s", checked: false}
-      ],
-      userProp: []
+      letters: [],
+      userProp: [],
+      result: ''
     }
   },
 
@@ -70,7 +67,25 @@ export default {
 
     validation(){
       console.log(this.userProp.join(""))
+      const headers = {
+        'Content-Type':'text/plain'
+      };
+      axios
+        .post("http://localhost:8081/word", {"word": this.userProp.join("")},{headers})
+        .then(response => {
+          this.result = response.data.exist
+        })
     }
+  },
+
+  mounted () {
+    axios
+      .get('http://localhost:8081/word')
+      .then(response => {
+        for (const resp of response.data) {
+          this.letters.push({letter: resp, checked:false})
+        }
+      })
   }
 }
 </script>
