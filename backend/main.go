@@ -60,10 +60,22 @@ func main() {
 	}
 
 	// create REST API server
+	addr := ":8081"
 	router := mux.NewRouter()
+	router.Use(middlewareMain)
 	router.HandleFunc("/word", lettersOfTheDay).Methods("GET")
 	router.HandleFunc("/word", verifyWord).Methods("POST")
-	log.Println("Server listening on :8081")
-	err = http.ListenAndServe(":8081", router)
+	log.Println("Server listening on", addr)
+	err = http.ListenAndServe(addr, router)
 	log.Fatal(err)
+}
+
+func middlewareMain(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		log.Printf("%v %v\n", req.Method, req.URL)
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+		next.ServeHTTP(w, req)
+	})
 }
