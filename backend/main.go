@@ -48,12 +48,12 @@ func main() {
 	if err != nil {
 		log.Fatal("open words.txt:", err)
 	}
-	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		nn.InsertWord(scanner.Text())
 	}
+	file.Close()
 
 	if err = scanner.Err(); err != nil {
 		log.Fatal(err)
