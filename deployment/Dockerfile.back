@@ -1,0 +1,11 @@
+# builder image
+FROM golang as builder
+WORKDIR /myapp
+ADD . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o back ./backend/main.go
+
+# final image
+FROM alpine
+COPY --from=builder myapp/back .
+COPY --from=builder myapp/backend/words.txt .
+ENTRYPOINT [ "./back" ]

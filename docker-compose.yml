@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: deployment/Dockerfile.back
+    ports:
+      - "8081:8081"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: deployment/Dockerfile.front
+    ports:
+      - 8080:80
