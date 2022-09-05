@@ -4,14 +4,20 @@ import (
 	"bufio"
 	"encoding/json"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gorilla/mux"
 
 	"github.com/Lew-Lew/plop/backend/bst"
 	"github.com/Lew-Lew/plop/backend/letters"
 )
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
 
 var nn = bst.NewNode()
 
