@@ -2,28 +2,28 @@ package letters
 
 import (
 	"testing"
+	"unicode"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestGenerateLetters(t *testing.T) {
 	runGenerateFirst := GenerateLetters()
 	runGenerateSecond := GenerateLetters()
 
-	assert.NotEqual(t, runGenerateFirst, runGenerateSecond)
+	require.NotEqual(t, runGenerateFirst, runGenerateSecond)
 }
 
-func TestGenerateLetters2(t *testing.T) {
-	assert.NotEqual(t, GenerateLetters2(), GenerateLetters2())
-}
+func TestGenerateLettersLength(t *testing.T) {
+	g := GenerateLetters()
+	require.Equal(t, 10, len(g))
 
-func BenchmarkGenerateLetters2(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		GenerateLetters2()
+	for _, v := range g {
+		require.True(t, unicode.IsLetter(rune(v[0])))
 	}
 }
 
-func BenchmarkGenerateLetters(b *testing.B) {
+func BenchmarkGenerateLetters2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		GenerateLetters()
 	}

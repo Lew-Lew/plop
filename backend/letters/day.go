@@ -9,7 +9,7 @@ import (
 	"github.com/go-co-op/gocron"
 )
 
-var word [9]string
+var word [10]string
 var wordMux sync.RWMutex
 
 func init() {
@@ -27,10 +27,10 @@ func init() {
 func setWord() {
 	wordMux.Lock()
 	defer wordMux.Unlock()
-	word = GenerateLetters2()
+	word = GenerateLetters()
 }
 
-func WordOfTheDay() ([9]string, error) {
+func WordOfTheDay() ([10]string, error) {
 	if len(word) == 0 {
 		return word, fmt.Errorf("word is not initialized")
 	}

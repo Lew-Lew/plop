@@ -4,29 +4,18 @@ import (
 	"math/rand"
 )
 
-var letters = []string{"a", "z", "e", "r", "t", "y", "u", "i", "o", "p", "m", "l", "k", "j", "h", "g", "f", "d", "s", "q", "w", "x", "c", "v", "b", "n"}
+var voyels = []string{"a", "e", "i", "o", "u", "y"}
+var consonants = []string{"z", "r", "t", "p", "m", "l", "k", "j", "h", "g", "f", "d", "s", "q", "w", "x", "c", "v", "b", "n"}
 
-// nommage: si commence par une majuscule c'est public sinon privé
-func GenerateLetters() [9]string {
-	// déclaration de variable:
-	// var letters []string
-	// initialisation de variable:
-	// letters = []string{"a","z","e","r","t","y","u","i","o","p","m","l","k","j","h","g","f","d","s","q","w","x","c","v","b","n"}
-	//  =
-	var arrayLetters [9]string
+func GenerateLetters() [10]string {
+	var arrayLetters [10]string
 
-	for i := 0; i < 9; i++ {
-		rand.Shuffle(len(letters), func(i, j int) { letters[i], letters[j] = letters[j], letters[i] })
-		arrayLetters[i] = letters[0]
+	for i := 0; i < 5; i++ {
+		arrayLetters[i] = voyels[rand.Intn(len(voyels))]
 	}
-	return arrayLetters
-}
 
-func GenerateLetters2() [9]string {
-	var arrayLetters [9]string
-
-	for i := 0; i < 9; i++ {
-		arrayLetters[i] = letters[rand.Intn(len(letters))]
+	for i := 5; i < 10; i++ {
+		arrayLetters[i] = consonants[rand.Intn(len(consonants))]
 	}
 	return arrayLetters
 }
