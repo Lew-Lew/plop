@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    <h1>PLOP</h1>
+    <div class="d-flex justify-content-center">
+      <div class="border-box" >
+        <h1 id="title">Rettel</h1>
+      </div>
+    </div>
     <div id="letters-list-div">
       <ul class="list-inline" id="letters-list">
         <li v-on:click="getLetter(i)" v-for="(l, i) in letters"  v-bind:key="l" class="list-inline-item">
@@ -20,6 +24,7 @@
         <li class="list-inline-item">{{this.userProp[6]}}</li>
         <li class="list-inline-item">{{this.userProp[7]}}</li>
         <li class="list-inline-item">{{this.userProp[8]}}</li>
+        <li class="list-inline-item">{{this.userProp[9]}}</li>
       </ul>
     </div>
 
@@ -91,19 +96,38 @@ export default {
 </script>
 
 <style scoped>
-#letters-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-#letters-list li {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  background: #fff;
-  border: 1px solid #f9f9f9;
-  border-radius: 5px;
-}
+  #title {
+    font-family: 'Londrina Shadow', cursive;
+    font-size: 75px;
+    margin: 0px;
+    color: #585757;
+  }
+
+  .border-box {
+    border: 3px solid #585757;
+    border-radius: 50px 50px 50px 0px;
+    padding: 10px 60px;
+  }
+
+  #letters-list-div {
+    margin: 30px;
+  }
+
+
+  #letters-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #letters-list li {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #fff;
+    border: 2px solid #585757;
+    border-radius: 9px 9px 9px 0px;
+  }
 </style>
