@@ -5,13 +5,7 @@
         <h1 id="title">Rettel</h1>
       </div>
     </div>
-    <div id="letters-list-div">
-      <ul class="list-inline" id="letters-list">
-        <li v-on:click="getLetter(i)" v-for="(l, i) in letters"  v-bind:key="l" class="list-inline-item">
-          {{ l.letter }}
-        </li>
-      </ul>
-    </div>
+
 
     <div id="letters-list-div">
       <ul class="list-inline" id="letters-list">
@@ -25,6 +19,14 @@
         <li class="list-inline-item">{{this.userProp[7]}}</li>
         <li class="list-inline-item">{{this.userProp[8]}}</li>
         <li class="list-inline-item">{{this.userProp[9]}}</li>
+      </ul>
+    </div>
+
+    <div id="get-letters-list-div">
+      <ul class="list-inline" id="get-letters-list">
+        <li v-on:click="getLetter(i)" v-for="(l, i) in letters"  v-bind:key="l" class="list-inline-item">
+          {{ l.letter }}
+        </li>
       </ul>
     </div>
 
@@ -122,8 +124,15 @@ export default {
   }
 
   #letters-list li {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Londrina Solid', cursive;
+    color: #585757;
+    font-size: 35px;
     line-height: 40px;
     text-align: center;
     background: #fff;
