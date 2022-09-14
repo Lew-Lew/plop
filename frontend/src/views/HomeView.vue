@@ -19,6 +19,7 @@
         <li class="list-inline-item">{{this.userProp[7]}}</li>
         <li class="list-inline-item">{{this.userProp[8]}}</li>
         <li class="list-inline-item">{{this.userProp[9]}}</li>
+
       </ul>
     </div>
 
@@ -139,4 +140,30 @@ export default {
     border: 2px solid #585757;
     border-radius: 9px 9px 9px 0px;
   }
+
+  #get-letters-list-div {
+    margin: 30px;
+  }
+
+  #get-letters-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #get-letters-list li {
+    border-radius: 9px;
+    background-color: #F8F8F8;
+    font-family: 'Londrina Solid', cursive;
+    font-size: 35px;
+    color: #585757;
+    width: 60px;
+    height: 60px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
 </style>
