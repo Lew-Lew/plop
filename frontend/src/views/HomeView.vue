@@ -26,7 +26,7 @@
     <div id="get-letters-list-div">
       <ul class="list-inline" id="get-letters-list">
         <li v-on:click="getLetter(i)" v-for="(l, i) in letters"  v-bind:key="l" class="list-inline-item">
-          {{ l.letter }}
+          {{ l.letter.toUpperCase() }}
         </li>
       </ul>
     </div>
@@ -36,10 +36,9 @@
       <p v-else> LOOSE </p>
     </div>
 
-    <div v-show="this.result === ''">
-      <button v-on:click="deleteAll()" type="button" class="btn btn-light">Effacer</button>
-
-      <button v-on:click="validation()" type="button" class="btn btn-light">Valider</button>
+    <div v-show="this.result === ''" class="d-flex justify-content-center">
+      <button v-on:click="validation()" type="button" class="btn btn-light buttons">Valider</button>
+      <button v-on:click="deleteAll()" type="button" class="btn btn-light buttons">Effacer</button>
     </div>
   </div>
 </template>
@@ -163,7 +162,22 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0px 2px 4px -1px rgb(89 84 84 / 45%);
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 
+  .buttons {
+    font-family: 'Londrina Solid', cursive;
+    font-size: 35px;
+    background-color: #F8F8F8;
+    box-shadow: 0px 2px 4px -1px rgb(89 84 84 / 45%);
+    margin: 20px;
+    width: 222px;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
 </style>
