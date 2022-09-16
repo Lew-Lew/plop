@@ -25,20 +25,20 @@
 
     <div id="get-letters-list-div">
       <ul class="list-inline" id="get-letters-list">
-        <li v-on:click="getLetter(i)" v-for="(l, i) in letters"  v-bind:key="l" class="list-inline-item">
+        <li v-on:click="getLetter(i)" v-for="(l, i) in letters"  v-bind:key="l" class="get-list-inline-item" >
           {{ l.letter.toUpperCase() }}
         </li>
       </ul>
     </div>
 
-    <div v-show="this.result !== ''">
+    <!-- <div v-show="this.result !== ''">
       <p v-if="this.result === true"> WIN </p>
       <p v-else> LOOSE </p>
-    </div>
+    </div> -->
 
     <div v-show="this.result === ''" class="d-flex justify-content-center">
-      <button v-on:click="validation()" type="button" class="btn btn-light buttons">Valider</button>
-      <button v-on:click="deleteAll()" type="button" class="btn btn-light buttons">Effacer</button>
+      <a v-on:click="validation()" type="button" class="btn btn-light buttons">Valider</a>
+      <a v-on:click="deleteAll()" type="button" class="btn btn-light buttons">Effacer</a>
     </div>
   </div>
 </template>
@@ -53,14 +53,14 @@ export default {
     return {
       letters: [],
       userProp: [],
-      result: ''
+      result: '',
     }
   },
 
   methods: {
     getLetter(index){
       if (this.letters[index].checked === false) {
-        this.userProp.push(this.letters[index].letter)
+        this.userProp.push(this.letters[index].letter.toUpperCase())
         this.letters[index].checked = true
       }
     },
@@ -108,7 +108,7 @@ export default {
 
   .border-box {
     border: 3px solid #585757;
-    border-radius: 50px 50px 50px 0px;
+    border-radius: 43px 43px 43px 0px;
     padding: 10px 60px;
   }
 
@@ -124,8 +124,8 @@ export default {
   }
 
   #letters-list li {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -150,7 +150,7 @@ export default {
     align-items: center;
   }
 
-  #get-letters-list li {
+  .get-list-inline-item {
     border-radius: 9px;
     background-color: #F8F8F8;
     font-family: 'Londrina Solid', cursive;
@@ -167,11 +167,48 @@ export default {
     margin-right: 5px;
   }
 
+  .get-list-inline-item:hover {
+    border-radius: 9px;
+    background-color: #F8F8F8;
+    font-family: 'Londrina Solid', cursive;
+    font-size: 35px;
+    color: #585757;
+    width: 60px;
+    height: 60px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 4px -1px rgb(89 84 84 / 45%) inset;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .active {
+    background-color: red;
+  }
+
+
   .buttons {
     font-family: 'Londrina Solid', cursive;
     font-size: 35px;
     background-color: #F8F8F8;
     box-shadow: 0px 2px 4px -1px rgb(89 84 84 / 45%);
+    margin: 20px;
+    width: 222px;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+  }
+
+  .buttons:hover {
+    font-family: 'Londrina Solid', cursive;
+    font-size: 35px;
+    background-color: #F8F8F8;
+    box-shadow: 0px 2px 4px -1px rgb(89 84 84 / 45%) inset;
+    border: none;
     margin: 20px;
     width: 222px;
     height: 43px;
