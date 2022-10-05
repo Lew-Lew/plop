@@ -4,26 +4,20 @@ import (
 	"bufio"
 	"encoding/json"
 	"log"
-	"math/rand"
 	"net/http"
 	"os"
-	"time"
 
 	"github.com/gorilla/mux"
 
 	"github.com/Lew-Lew/plop/backend/bst"
-	"github.com/Lew-Lew/plop/backend/letters"
+	"github.com/Lew-Lew/plop/backend/generator"
 )
-
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
 
 var nn = bst.NewNode()
 
 func lettersOfTheDay(w http.ResponseWriter, _ *http.Request) {
 	log.Println("lettersOfTheDay")
-	l, err := letters.WordOfTheDay()
+	l, err := generator.LettersOfTheDay()
 	if err != nil {
 		http.Error(w, "WORD_UNINITIALIZED", http.StatusInternalServerError)
 		return
@@ -34,26 +28,32 @@ func lettersOfTheDay(w http.ResponseWriter, _ *http.Request) {
 	}
 }
 
-// la structure de données qui va contenir le JSON pour la requête
+// verifyWordRequest contains all data of the JSON request body
 type verifyWordRequest struct {
 	Word string `json:"word"`
 }
 
-// la structure de donnée pour la réponse qu'on renvoit
+// verifyWordResponse contains all data of the JSON response
 type verifyWordResponse struct {
 	Exist bool `json:"exist"`
 }
 
 func verifyWord(w http.ResponseWriter, r *http.Request) {
-	log.Println("verifyWord")
-	// variable qui permet de stocker résultat décodé du JSON récupéré de la requête POST ie la props du user
-	var rBody verifyWordRequest
-	json.NewDecoder(r.Body).Decode(&rBody)
+	var reqBody verifyWordRequest
 
-	response := verifyWordResponse{
-		Exist: nn.WordExist(rBody.Word),
+	if err := json.NewDecoder(r.Body).Decode(&reqBody); err != nil {
+		http.Error(w, "INTERNAL_ERROR", http.StatusInternalServerError)
+		return
 	}
-	json.NewEncoder(w).Encode(response)
+
+	resBody := verifyWordResponse{
+		Exist: nn.WordExist(reqBody.Word),
+	}
+
+	if err := json.NewEncoder(w).Encode(resBody); err != nil {
+		http.Error(w, "INTERNAL_ERROR", http.StatusInternalServerError)
+		return
+	}
 }
 
 func main() {
@@ -78,6 +78,7 @@ func main() {
 	router.Use(middlewareMain)
 	router.HandleFunc("/word", lettersOfTheDay).Methods("GET")
 	router.HandleFunc("/word", verifyWord).Methods("POST")
+
 	log.Println("Server listening on", addr)
 	err = http.ListenAndServe(addr, router)
 	log.Fatal(err)
