@@ -21,10 +21,17 @@ func init() {
 
 var nn = bst.NewNode()
 
-func lettersOfTheDay(w http.ResponseWriter, r *http.Request) {
+func lettersOfTheDay(w http.ResponseWriter, _ *http.Request) {
 	log.Println("lettersOfTheDay")
-	l := letters.GenerateLetters2()
-	json.NewEncoder(w).Encode(l)
+	l, err := letters.WordOfTheDay()
+	if err != nil {
+		http.Error(w, "WORD_UNINITIALIZED", http.StatusInternalServerError)
+		return
+	}
+	if err := json.NewEncoder(w).Encode(l); err != nil {
+		http.Error(w, "INTERNAL_ERROR", http.StatusInternalServerError)
+		return
+	}
 }
 
 // la structure de données qui va contenir le JSON pour la requête
